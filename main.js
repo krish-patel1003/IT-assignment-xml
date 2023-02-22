@@ -14,17 +14,22 @@ form.addEventListener("submit", (e) => {
   xhr.onload = function () {
     // Request finished. Do processing here.
     xmlDoc = this.responseXML; // <- Here's your XML file
-    console.log(xmlDoc.getElementsByTagName("student")[0].textContent)
+    // console.log(xmlDoc.getElementsByTagName("student")[1].firstElementChild.innerHTML)
+    students = xmlDoc.getElementsByTagName("student")
+    let flag = false
+    for (let i = 0; i < students.length; i++) {
+        let stud = students[i]
+        data_rollno = stud.firstElementChild.innerHTML
+        if(rollno === data_rollno){
+            console.log(stud.textContent)
+            flag = true
+        }
+    }
+    if(!flag){
+        console.log("Data not found");
+    }
   };
 
   xhr.send(null);
 });
 
-// function loadXMLDoc() {
-//   let xhttp = new XMLHttpRequest();
-//   let xmlDoc;
-//   xhttp.open("GET", "data.xml", true);
-//   xhttp.send();
-//   xmlDoc = xhttp.responseText;
-//   return xmlDoc;
-// }
